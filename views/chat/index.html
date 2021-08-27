@@ -104,7 +104,7 @@
             //    sendMsg(msg);
             //    return false;
             //};
-            var url = "ws://" + window.location.host +"/socket.io/";
+            var url = window.location.protocol + "//" + window.location.host +"/socket.io/";
             console.log(url)
             const socket = io(url);
 
