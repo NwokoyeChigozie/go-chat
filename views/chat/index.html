@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chat APp</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+
+        <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+        body{
+            font:13px Helvetica, Arial;
+        }
+        form {
+            background: #000;
+            padding:3px;
+            position:fixed;
+            bottom:0;
+            width:100%;
+        }
+        form input{
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+        form button {
+            width:9%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+         #messages li {
+             padding: 5px 10px;
+         }
+
+         #messages li:nth-child(odd){
+             background : #eee;
+         }
+
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <ul id="messages"><ul>
+        <form id="mform">
+            <input id="m" autocomplete="off" />
+            <button id="send_button">send<button>
+        </form>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>        
+        <!-- <script src="" async defer></script>-->
+        <script>
+            //let socket = new WebSocket("ws:localhost:8080/socket.io/");
+            //console.log("Attempting WebSocket Connection");
+
+            //socket.onopen = () => {
+            //    console.log("Successfully Connected");
+            //    //socket.send("Hi From the client");
+            //    //socket.send("Hi From the client");
+                
+            //}
+            //const sendMsg = (msg) => {
+            //    console.log("sending msg: ", msg);
+            //    socket.send(msg);
+            //    //socket.emit("sending", msg);
+            //    };
+
+            //socket.onclose = (event) => {
+            //    console.log("Socket Closed Connection: ", event)
+            //}
+
+            //socket.onerror = (error) => {
+            //    console.log("Socket Error ", error)
+            //}
+
+            //socket.onmessage = (msg) =>{
+            //    console.log(msg)
+            //    document.getElementById("messages").innerHTML += `<li>${msg.data}</li>`;
+            //}
+
+            //document.getElementById("mForm").addEventListener("submit", );
+            //document.getElementById("send_button").onclick = function(event){
+            //    event.preventDefault();
+            //    var msg = document.getElementById("m").value;
+            //    sendMsg(msg);
+            //    return false;
+            //};
+
+            const socket = io("ws://localhost:8080/socket.io/");
+
+            socket.on("connect", () => {
+            // either with send()
+            //socket.send("Hello!");
+            console.log("Socket Connected");
+
+            // or with emit() and custom event names
+            
+            });
+            //socket.emit("salutations", "Hello!");
+
+            // handle the event sent with socket.send()
+            socket.on("message", data => {
+            console.log(data);
+            //document.getElementById("messages").innerHTML += "<li>"+data+"</li>"";
+            var node = document.createElement("LI");                 // Create a <li> node
+            var textnode = document.createTextNode(data);         // Create a text node
+            node.appendChild(textnode); 
+            document.getElementById("messages").appendChild(node);
+            });
+
+            
+            document.getElementById("send_button").onclick = function(event){
+                event.preventDefault();
+                //console.log("clicked")
+                var msg = document.getElementById("m").value;
+                socket.emit("salutations", msg);
+                return false;
+            };
+
+            // handle the event sent with socket.emit()
+            //socket.on("greetings", (elem1, elem2, elem3) => {
+            //console.log(elem1, elem2, elem3);
+            //});
+
+        </script>
+             <script type="text/javascript">
+    //$(document).ready(function(){
+    // const socket = io();
+    // $('form').submit(function(event){
+    //     event.preventDefault();
+    //     socket.emit('chat message', $('#m').val());
+    //    console.log("sent")
+    //    return false;
+    // });
+
+    // socket.on('chat message', function(msg){
+    //     $('#messages').append($('<li>').text(msg));
+    // });
+
+
+    //});
+</script>   
+    </body>
+</html>
