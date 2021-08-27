@@ -104,8 +104,9 @@
             //    sendMsg(msg);
             //    return false;
             //};
-
-            const socket = io("ws://localhost:8080/socket.io/");
+            var url = "ws://" + window.location.host +"/socket.io/";
+            console.log(url)
+            const socket = io(url);
 
             socket.on("connect", () => {
             // either with send()
